@@ -17,6 +17,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drawerlayout"
+        >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,5 +35,16 @@
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/navigation" />
         </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:menu="@menu/navdrower_menu"
+            android:id="@+id/navView"
+            app:headerLayout="@layout/nav_header"
+            />
+    </androidx.drawerlayout.widget.DrawerLayout>
+
 
 </layout>

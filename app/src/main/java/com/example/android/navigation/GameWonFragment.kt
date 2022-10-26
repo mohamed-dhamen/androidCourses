@@ -45,6 +45,41 @@ class GameWonFragment : Fragment() {
         binding.nextMatchButton.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_gameWonFragment_to_gameFragment)
         }
+
+        setHasOptionsMenu(true)
         return binding.root
     }
+
+
+    fun getsharIntent():Intent{
+        val args =GameWonFragmentArgs.fromBundle(arguments!!)
+        val sherInetnt =Intent(Intent.ACTION_SEND)
+            sherInetnt.setType("text/plain")
+                .putExtra(Intent.EXTRA_TEXT,getString(R.string.share_success_text, args.numCorrect, args.numQuestion))
+        return sherInetnt
+    }
+
+    private fun shareSuccess() {
+        startActivity(getsharIntent())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.winner_menu,menu)
+        if (null == getsharIntent().resolveActivity(activity!!.packageManager)) {
+            // hide the menu item if it doesn't resolve
+            menu?.findItem(R.id.share)?.setVisible(false)
+        }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item!!.itemId) {
+            R.id.share -> shareSuccess()
+        }
+        return super.onOptionsItemSelected(item)
+
+    }
+
 }
